@@ -1,16 +1,19 @@
 package tacos;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tacos.domain.Ingredient;
@@ -42,11 +45,24 @@ public class DesignTacoController {
 		for (Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(),
 					filterByType(ingredents, type));
+			log.info("Add to model: " + type.toString().toLowerCase());
 		}
 		
-		model.addAttribute("taco", new Taco());
+		model.addAttribute("design", new Taco());
 		
 		return "design";
+	}
+	
+	@PostMapping
+	public String processDesignForm(@Valid @ModelAttribute("design") Taco design, Errors errors) {
+		if (errors.hasErrors()) {
+			return "design";
+		}
+		
+		// save the tace
+		log.info("Process design: " + design);
+		
+		return "redirect:/";
 	}
 	
 	
