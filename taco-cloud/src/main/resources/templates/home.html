@@ -2,11 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Taco Cloud</title>
+	<title>Taco Cloud</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
 </head>
 <body>
-	<h1>Welcome to...</h1>
-	<p>A product from Tea Code</p>
-	<img th:src="@{/images/TacoCloud.png}" />
+	<div class="container">
+		<h1>Welcome to...</h1>
+		<p>A product from Tea Code</p>
+		<img th:src="@{/images/TacoCloud.png}" />
+	</div>
 </body>
 </html>
