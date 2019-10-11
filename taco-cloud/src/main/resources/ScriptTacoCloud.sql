@@ -77,3 +77,38 @@ insert into Ingredient (id, name, type)
 values ('SRCR', 'Sour Cream', 'SAUCE');
 
 select * from Ingredient;
+
+create table Users (
+	username varchar(10) primary key,
+	password varchar(256),
+	enable boolean
+);
+
+create extension pgcrypto;   -- to use digest function
+
+delete from Users;
+
+insert into Users (username, password, enable) 
+values ('tea', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', true);
+
+insert into Users (username, password, enable) 
+values ('code', '$2a$10$W9oRWeFmOT0bByL5fmAceucetmEYFg2yzq3e50mcu.CO7rUDb/poG', true);
+
+insert into Users (username, password, enable) 
+values ('david', crypt('123', 'hello'), true);
+
+
+select * from Users;
+
+create table Authorities (
+	username varchar(10),
+	authority varchar(20)
+);
+
+insert into Authorities(username, authority)
+values ('tea', 'ROLE_ADMIN');
+
+insert into Authorities(username, authority)
+values ('code', 'ROLE_USER');
+
+select * from Authorities;
