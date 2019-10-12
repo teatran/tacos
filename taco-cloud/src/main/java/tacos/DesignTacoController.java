@@ -1,5 +1,6 @@
 package tacos;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,11 @@ public class DesignTacoController {
 	}
 	
 	@GetMapping
-	public String showDesignForm(Model model) {
+	public String showDesignForm(Model model, Principal principal) {
+		
+		// print the log-in user
+		log.info("Current user: " + principal.getName());
+		
 		List<Ingredient> ingredents = ingredientRepo.findAll();
 		
 		Type[] types = Type.values();
